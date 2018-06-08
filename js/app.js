@@ -11,19 +11,19 @@
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-  var currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
+    var currentIndex = array.length,
+        temporaryValue,
+        randomIndex;
 
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
 
-  return array;
+    return array;
 }
 
 /*
@@ -37,12 +37,53 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+let toggledCards = [];
+
 const deck = document.querySelector('.deck');
 
 deck.addEventListener('click', event => {
-  const clickTarget = event.target;
-  if (clickTarget.classList.contains('card')) {
-    clickTarget.classList.toggle('open');
-    clickTarget.classList.toggle('show');
-  }
+    const clickTarget = event.target;
+    if (isClickValid(clickTarget)) {
+        toggleCard(clickTarget);
+        addToggleCard(clickTarget);
+        if (toggledCards.length === 2) {
+            checkForMatch(clickTarget);
+        }
+    }
 });
+
+function isClickValid(clickTarget) {
+    return (
+        clickTarget.classList.contains('card') &&
+        !clickTarget.classList.contains('match') &&
+        toggledCards.length < 2 &&
+        !toggledCards.includes(clickTarget)
+    );
+}
+
+function toggleCard(card) {
+    card.classList.toggle('open');
+    card.classList.toggle('show');
+}
+
+function addToggleCard(clickTarget) {
+    toggledCards.push(clickTarget);
+    console.log(toggledCards);
+}
+
+function checkForMatch() {
+    if (
+        toggledCards[0].firstElementChild.className ===
+        toggledCards[1].firstElementChild.className
+    ) {
+        toggledCards[0].classList.toggle('match');
+        toggledCards[1].classList.toggle('match');
+        toggledCards = [];
+    } else {
+        setTimeout(() => {
+            toggleCard(toggledCards[0]);
+            toggleCard(toggledCards[1]);
+            toggledCards = [];
+        }, 1000);
+    }
+}
