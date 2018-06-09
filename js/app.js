@@ -2,6 +2,28 @@
  * Create a list that holds all of your cards
  */
 
+const deck = document.querySelector('.deck');
+let toggledCards = [];
+
+// function shuffleDeck() {
+//     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
+//     console.log('cards to shuffle', cardsToShuffle);
+//     const shuffledCards = shuffle(cardsToShuffle);
+//     console.log(shuffledCards);
+//     for (card of shuffledCards) {
+//         deck.appendChild(card);
+//     }
+// }
+// shuffleDeck();
+
+function shuffleDeck() {
+    const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
+    console.log('Cards to shuffle', cardsToShuffle);
+    const shuffledCards = shuffle(cardsToShuffle);
+    console.log('Shuffled cards', shuffledCards);
+}
+shuffleDeck();
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -36,10 +58,6 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-let toggledCards = [];
-
-const deck = document.querySelector('.deck');
 
 deck.addEventListener('click', event => {
     const clickTarget = event.target;
