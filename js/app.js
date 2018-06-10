@@ -49,6 +49,7 @@ function shuffle(array) {
  */
 
 let toggledCards = [];
+let moves = 0;
 
 deck.addEventListener('click', event => {
     const clickTarget = event.target;
@@ -57,6 +58,7 @@ deck.addEventListener('click', event => {
         addToggleCard(clickTarget);
         if (toggledCards.length === 2) {
             checkForMatch(clickTarget);
+            addMove();
         }
     }
 });
@@ -95,4 +97,10 @@ function checkForMatch() {
             toggledCards = [];
         }, 1000);
     }
+}
+
+function addMove() {
+    moves++;
+    const movesText = document.querySelector('.moves');
+    movesText.innerHTML = moves;
 }
