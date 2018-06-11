@@ -3,6 +3,8 @@
  */
 
 const deck = document.querySelector('.deck');
+let toggledCards = [];
+let moves = 0;
 
 function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
@@ -48,9 +50,6 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-let toggledCards = [];
-let moves = 0;
-
 deck.addEventListener('click', event => {
     const clickTarget = event.target;
     if (isClickValid(clickTarget)) {
@@ -59,6 +58,7 @@ deck.addEventListener('click', event => {
         if (toggledCards.length === 2) {
             checkForMatch(clickTarget);
             addMove();
+            checkScore();
         }
     }
 });
@@ -103,4 +103,20 @@ function addMove() {
     moves++;
     const movesText = document.querySelector('.moves');
     movesText.innerHTML = moves;
+}
+
+function checkScore() {
+    if (moves === 16 || moves === 24) {
+        hideStar();
+    }
+}
+
+function hideStar() {
+    stars = document.querySelectorAll('.stars li');
+    for (star of stars) {
+        if (star.style.display !== 'none') {
+            star.style.display = 'none';
+            break;
+        }
+    }
 }
