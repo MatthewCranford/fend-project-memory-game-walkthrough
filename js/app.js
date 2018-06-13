@@ -5,6 +5,8 @@
 const deck = document.querySelector('.deck');
 let toggledCards = [];
 let moves = 0;
+let clockOff = true;
+let time = 0;
 
 function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
@@ -53,6 +55,10 @@ function shuffle(array) {
 deck.addEventListener('click', event => {
     const clickTarget = event.target;
     if (isClickValid(clickTarget)) {
+        if (clockOff) {
+            startClock();
+            clockOff = false;
+        }
         toggleCard(clickTarget);
         addToggleCard(clickTarget);
         if (toggledCards.length === 2) {
@@ -79,7 +85,6 @@ function toggleCard(card) {
 
 function addToggleCard(clickTarget) {
     toggledCards.push(clickTarget);
-    console.log(toggledCards);
 }
 
 function checkForMatch() {
@@ -118,5 +123,25 @@ function hideStar() {
             star.style.display = 'none';
             break;
         }
+    }
+}
+
+function startClock() {
+    clockId = setInterval(() => {
+        time++;
+        displayTime();
+        console.log(time);
+    }, 1000);
+}
+
+function displayTime() {
+    const clock = document.querySelector('.clock');
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    if (seconds < 10) {
+        clock.innerHTML = `${minutes}:0${seconds}`;
+    } else {
+        clock.innerHTML = `${minutes}:${seconds}`;
     }
 }
