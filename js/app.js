@@ -2,11 +2,13 @@
  * Create a list that holds all of your cards
  */
 
+// Globals
 const deck = document.querySelector('.deck');
 let toggledCards = [];
 let moves = 0;
 let clockOff = true;
 let time = 0;
+let clockId;
 
 function shuffleDeck() {
     const cardsToShuffle = Array.from(document.querySelectorAll('.deck li'));
@@ -144,4 +146,8 @@ function displayTime() {
     } else {
         clock.innerHTML = `${minutes}:${seconds}`;
     }
+}
+
+function stopClock() {
+    clearInterval(clockId);
 }
