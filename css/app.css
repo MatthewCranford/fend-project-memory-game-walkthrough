@@ -124,9 +124,9 @@ h1 {
 .modal__body {
     position: relative;
     width: 400px;
+    /* height: 400px; Removed */
     top: 50%;
     left: 50%;
-
     background: #ffffff;
     transform: translate(-50%, -70%);
 }
@@ -134,8 +134,14 @@ h1 {
 .modal__heading {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0 1.5rem;
     border-bottom: 1px solid gray;
+}
+
+.modal__close {
+    font-weight: bold;
+    font-size: 2rem;
 }
 
 .modal__stats {
