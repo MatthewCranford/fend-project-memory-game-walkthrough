@@ -132,7 +132,6 @@ function startClock() {
     clockId = setInterval(() => {
         time++;
         displayTime();
-        console.log(time);
     }, 1000);
 }
 
@@ -151,3 +150,48 @@ function displayTime() {
 function stopClock() {
     clearInterval(clockId);
 }
+
+function toggleModal() {
+    const modal = document.querySelector('.modal__background');
+    modal.classList.toggle('hide');
+}
+
+function writeModalStats() {
+    const timeStat = document.querySelector('.modal__time');
+    const clockTime = document.querySelector('.clock').innerHTML;
+    const movesStat = document.querySelector('.modal__moves');
+    const starsStat = document.querySelector('.modal__stars');
+    const stars = getStars();
+
+    timeStat.innerHTML = `Time = ${clockTime}`;
+    movesStat.innerHTML = `Moves = ${moves}`;
+    starsStat.innerHTML = `Stars = ${stars}`;
+}
+
+function getStars() {
+    stars = document.querySelectorAll('.stars li');
+    starCount = 0;
+    for (star of stars) {
+        if (star.style.display !== 'none') {
+            starCount++;
+        }
+    }
+    return starCount;
+}
+
+// // Modal tests
+// time = 121;
+// displayTime(); // 2:01
+// moves = 16;
+// checkScore(); // 2 stars
+
+// writeModalStats(); // Write stats to modal
+// toggleModal(); // Open modal
+
+document.querySelector('.modal__cancel').addEventListener('click', () => {
+    toggleModal();
+});
+
+document.querySelector('.modal__replay').addEventListener('click', () => {
+    // TODO: Call reset game HERE
+});
