@@ -119,14 +119,16 @@ function checkScore() {
 }
 
 function hideStar() {
-    stars = document.querySelectorAll('.stars li');
-    for (star of stars) {
+    const starList = document.querySelectorAll('.stars li');
+    for (star of starList) {
         if (star.style.display !== 'none') {
             star.style.display = 'none';
             break;
         }
     }
 }
+hideStar();
+hideStar();
 
 function startClock() {
     clockId = setInterval(() => {
@@ -155,6 +157,9 @@ function toggleModal() {
     const modal = document.querySelector('.modal__background');
     modal.classList.toggle('hide');
 }
+
+toggleModal(); // Open modal
+toggleModal(); // Close modal
 
 function writeModalStats() {
     const timeStat = document.querySelector('.modal__time');
@@ -192,6 +197,33 @@ document.querySelector('.modal__cancel').addEventListener('click', () => {
     toggleModal();
 });
 
-document.querySelector('.modal__replay').addEventListener('click', () => {
-    // TODO: Call reset game HERE
-});
+document.querySelector('.modal__replay').addEventListener('click', resetGame);
+
+document.querySelector('.restart').addEventListener('click', resetGame);
+
+function resetGame() {
+    resetClockAndTime();
+    resetMoves();
+    resetStars();
+    shuffleDeck();
+}
+
+function resetClockAndTime() {
+    stopClock();
+    clockOff = true;
+    time = 0;
+    displayTime();
+}
+
+function resetMoves() {
+    moves = 0;
+    document.querySelector('.moves').innerHTML = moves;
+}
+
+function resetStars() {
+    stars = 0;
+    const starList = document.querySelectorAll('.stars li');
+    for (star of starList) {
+        star.style.display = 'inline';
+    }
+}
