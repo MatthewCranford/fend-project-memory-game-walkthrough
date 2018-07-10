@@ -62,7 +62,6 @@ deck.addEventListener('click', event => {
             startClock();
             clockOff = false;
         }
-        console.log(toggledCards);
         toggleCard(clickTarget);
         addToggleCard(clickTarget);
         if (toggledCards.length === 2) {
@@ -211,6 +210,7 @@ function resetGame() {
     resetClockAndTime();
     resetMoves();
     resetStars();
+    // resetCards();
     shuffleDeck();
 }
 
@@ -231,5 +231,12 @@ function resetStars() {
     const starList = document.querySelectorAll('.stars li');
     for (star of starList) {
         star.style.display = 'inline';
+    }
+}
+
+function resetCards() {
+    const cards = document.querySelectorAll('.deck li');
+    for (let card of cards) {
+        card.className = 'card';
     }
 }
