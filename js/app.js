@@ -65,7 +65,7 @@ deck.addEventListener('click', event => {
         toggleCard(clickTarget);
         addToggleCard(clickTarget);
         if (toggledCards.length === 2) {
-            checkForMatch(clickTarget);
+            checkForMatch();
             addMove();
             checkScore();
         }
